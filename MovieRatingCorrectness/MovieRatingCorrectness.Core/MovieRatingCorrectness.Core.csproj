@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ApplicationServices\Implementations\" />
-    <Folder Include="ApplicationServices\Interfaces\" />
-    <Folder Include="DomainServices\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MovieRatingCorrectness.Entities\MovieRatingCorrectness.Entities.csproj" />
   </ItemGroup>
 
