@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MovieRatingCorrectness.Core.ApplicationServices.Interfaces
+namespace Core
 {
     public interface IMovieRatingService
     {

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using MovieRatingCorrectness.Core.ApplicationServices.Interfaces;
-using MovieRatingCorrectness.Core.DomainServices;
+﻿using System;
+using System.Collections.Generic;
 
-namespace MovieRatingCorrectness.Core.ApplicationServices.Implementations
+namespace Core
 {
     public class MovieRatingService : IMovieRatingService
     {

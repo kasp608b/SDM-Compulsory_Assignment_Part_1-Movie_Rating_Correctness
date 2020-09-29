@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Entities;
 
-namespace MovieRatingCorrectness.Core.DomainServices
+namespace Core
 {
     public interface IMovieRatingRepository
     {
-        public void ReadAll();
+        public List<Rating> ReadAll();
     }
 }
