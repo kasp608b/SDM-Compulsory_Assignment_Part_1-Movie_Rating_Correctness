@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Core;
 using Entities;
 using Moq;
@@ -51,5 +52,16 @@ namespace UnitTests
 
             Assert.Equal(ratings[0], repo.ReadAll()[0]);
         }
+
+        [Fact]
+        private void GetNumberOfReviewsFromReviewerEmptyListException()
+        {
+            IMovieRatingRepository repo = repoMock.Object;
+            MovieRatingService movieRatingService = new MovieRatingService(repo);
+
+            Assert.Throws<InvalidDataException>(() => movieRatingService.GetNumberOfReviewsFromReviewer(1));
+        }
+
+
     }
 }
