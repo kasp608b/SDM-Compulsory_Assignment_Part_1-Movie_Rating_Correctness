@@ -4,6 +4,7 @@ namespace Core
 {
     public interface IMovieRatingService
     {
+        public int NumberOfMoviesWithGrade(int grade);
         int GetNumberOfReviewsFromReviewer(int reviewer);
         double GetAverageRateFromReviewer(int reviewer);
         int GetNumberOfRatesByReviewer(int reviewer, int rate);
