@@ -69,50 +69,49 @@ namespace Core
             AverageRateFromReviewer = Math.Round(AverageRateFromReviewer, 2);
 
             return AverageRateFromReviewer;
-            //List<MovieRating> raitingList = _movieRatingRepository.ReadAll().Where(r => r.Reviewer == reviewer).ToList();
-            //if (raitingList.Count == 0)
-            //{
-            //    throw new ArgumentException("");
-            //}
-            
-            ////var avr2 = _movieRatingRepository.ReadAll().Where(r => r.Reviewer == reviewer).Average(rating => rating.Grade);
-
-            //double sum = 0;
-            //foreach (MovieRating raiting in raitingList)
-            //{
-            //    sum += raiting.Grade;
-            //}
-
-
-            //double avr = sum / raitingList.Count();
-            ////Math.Round(actavr, 2);
-
-            //return actAvr;
 
         }
 
         //3. On input N and R, how many times has reviewer N given rate R?
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
         {
-            throw new System.NotImplementedException();
+            return _movieRatingRepository
+                .ReadAll()
+                .Where(rating => rating.Reviewer == reviewer)
+                .Count(rating => rating.Grade == rate);
         }
 
         //4. On input N, how many have reviewed movie N?
         public int GetNumberOfReviews(int movie)
         {
-            throw new System.NotImplementedException();
+            return _movieRatingRepository
+                .ReadAll()
+                .Count(rating => rating.Movie == movie);
         }
 
         //5. On input N, what is the average rate the movie N had received?
         public double GetAverageRateOfMovie(int movie)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return _movieRatingRepository.ReadAll()
+                    .Where(rating => rating.Movie == movie)
+                    .Average(rating => rating.Grade);
+            }
+            catch (InvalidOperationException e)
+            {
+                return 0;
+            }
+
         }
 
         //6. On input N and R, how many times had movie N received rate R?
         public int GetNumberOfRates(int movie, int rate)
         {
-            throw new System.NotImplementedException();
+            return _movieRatingRepository
+                .ReadAll()
+                .Where(rating => rating.Movie == movie)
+                .Count(rating => rating.Grade == rate);
         }
 
         //7. What is the id(s) of the movie(s) with the highest number of top rates (5)?
@@ -137,27 +136,59 @@ namespace Core
         //8. What reviewer(s) had done most reviews?
         public List<int> GetMostProductiveReviewers()
         {
-            throw new System.NotImplementedException();
+            var reviewers = _movieRatingRepository.ReadAll()
+                .GroupBy(r => r.Reviewer)
+                .Select(group => new {
+                    Review = group.Key,
+                    NumberOfReviews = group.Count()
+                });
+
+            int max = reviewers.Max(grp => grp.NumberOfReviews);
+
+            return reviewers
+                .Where(grp => grp.NumberOfReviews == max)
+                .Select(grp => grp.Review)
+                .ToList();
         }
 
         //9. On input N, what is top N of movies? The score of a movie is its average rate.
         public List<int> GetTopRatedMovies(int amount)
         {
-            throw new System.NotImplementedException();
+            return _movieRatingRepository.ReadAll()
+                .GroupBy(r => r.Movie)
+                .Select(grp => new
+                {
+                    Movie = grp.Key,
+                    GradeAvg = grp.Average(x => x.Grade)
+                })
+                .OrderByDescending(grp => grp.GradeAvg)
+                .Select(grp => grp.Movie)
+                .Take(amount)
+                .ToList();
         }
 
         /*10. On input N, what are the movies that reviewer N has reviewed? The list should
         be sorted decreasing by rate first, and date secondly.*/
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
-            throw new System.NotImplementedException();
+            return _movieRatingRepository.ReadAll()
+                .Where(rating => rating.Reviewer == reviewer)
+                .OrderByDescending(rating => rating.Grade)
+                .ThenByDescending(rating => rating.Date)
+                .Select(rating => rating.Movie)
+                .ToList();
         }
 
         /*11. On input N, who are the reviewers that have reviewed movie N? The list should
         be sorted decreasing by rate first, and date secondly.*/
         public List<int> GetReviewersByMovie(int movie)
         {
-            throw new System.NotImplementedException();
+            return _movieRatingRepository.ReadAll()
+                .Where(rating => rating.Movie == movie)
+                .OrderByDescending(rating => rating.Grade)
+                .ThenByDescending(rating => rating.Date)
+                .Select(rating => rating.Reviewer)
+                .ToList();
         }
 
 

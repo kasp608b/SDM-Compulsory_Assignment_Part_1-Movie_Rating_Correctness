@@ -4,7 +4,7 @@ namespace Entities
 {
     public class MovieRating
     {
-        public MovieRating(int reviewer, int movie, double grade, DateTime date)
+        public MovieRating(int reviewer, int movie, int grade, DateTime date)
         {
             Reviewer = reviewer;
             Movie = movie;
@@ -14,7 +14,7 @@ namespace Entities
 
         public int Reviewer { get; set; }
         public int Movie { get; set; }
-        public double Grade { get; set; }
+        public int Grade { get; set; }
         public DateTime Date { get; set; }
     }
 }

@@ -334,9 +334,9 @@ namespace UnitTests
 
         // 9. On input N, what is top N of movies? The score of a movie is its average rate.
         [Theory]
-        [InlineData(1, new int[]{3})]
-        [InlineData(2, new int[]{3 , 1})]
-        [InlineData(3, new int[]{3 , 1, 2})]
+        [InlineData(1, new int[]{1})]
+        [InlineData(2, new int[]{1 , 3})]
+        [InlineData(3, new int[]{1 , 3, 2})]
         public void GetTopRatedMovies(int amount, int[] expected)
         {
             List<int> expectedList = new List<int>(expected);
