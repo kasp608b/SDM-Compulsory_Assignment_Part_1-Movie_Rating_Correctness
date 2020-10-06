@@ -16,7 +16,7 @@ namespace UnitTests
         public MovieRatingServiceTest()
         {
             repoMock = new Mock<IMovieRatingRepository>();
-            repoMock.Setup(x => x.ReadAll()).Returns(() => ratings);
+            repoMock.Setup(x => x.Ratings).Returns(() => ratings);
         }
 
         //Extra test.
@@ -46,7 +46,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
        
@@ -95,7 +95,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
 
@@ -153,7 +153,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Exactly(2));
+            repoMock.Verify(repo => repo.Ratings, Times.Exactly(2));
         }
 
         // 3. On input N and R, how many times has reviewer N given rate R?
@@ -188,7 +188,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         // 4. On input N, how many have reviewed movie N?
@@ -215,7 +215,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //5. On input N, what is the average rate the movie N had received?
@@ -243,7 +243,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         // 6. On input N and R, how many times had movie N received rate R?
@@ -270,7 +270,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
 
@@ -299,7 +299,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
 
         }
 
@@ -328,7 +328,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
 
         }
 
@@ -359,7 +359,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expectedList, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         /*10. On input N, what are the movies that reviewer N has reviewed? The list should
@@ -389,7 +389,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expectedList, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         /*11. On input N, who are the reviewers that have reviewed movie N? The list should
@@ -420,7 +420,7 @@ namespace UnitTests
 
             // assert
             Assert.Equal(expectedList, result);
-            repoMock.Verify(repo => repo.ReadAll(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
     }
 

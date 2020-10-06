@@ -23,7 +23,7 @@ namespace Core
             }
 
             HashSet<int> movies = new HashSet<int>();
-            foreach (MovieRating rating in _movieRatingRepository.ReadAll())
+            foreach (MovieRating rating in _movieRatingRepository.Ratings)
             {
                 if (rating.Grade == grade)
                 {
@@ -36,7 +36,7 @@ namespace Core
         //1. On input N, what are the number of reviews from reviewer N?
         public int GetNumberOfReviewsFromReviewer(int reviewer)
         {
-            return _movieRatingRepository.ReadAll()
+            return _movieRatingRepository.Ratings
                 .Where(r => r.Reviewer == reviewer)
                 .Count();
         }
@@ -44,13 +44,13 @@ namespace Core
         //2. On input N, what is the average rate that reviewer N had given?
         public double GetAverageRateFromReviewer(int reviewer)
         {
-            if (_movieRatingRepository.ReadAll().Count == 0)
+            if (_movieRatingRepository.Ratings.Count == 0)
             {
                 throw new ArgumentException("List is empty");
 
             }
 
-            List<MovieRating> ratingsfromReviewer = _movieRatingRepository.ReadAll().Where(rating => rating.Reviewer == reviewer).ToList();
+            List<MovieRating> ratingsfromReviewer = _movieRatingRepository.Ratings.Where(rating => rating.Reviewer == reviewer).ToList();
 
             double sumRating = 0;
 
@@ -76,7 +76,7 @@ namespace Core
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
         {
             return _movieRatingRepository
-                .ReadAll()
+                .Ratings
                 .Where(rating => rating.Reviewer == reviewer)
                 .Count(rating => rating.Grade == rate);
         }
@@ -85,7 +85,7 @@ namespace Core
         public int GetNumberOfReviews(int movie)
         {
             return _movieRatingRepository
-                .ReadAll()
+                .Ratings
                 .Count(rating => rating.Movie == movie);
         }
 
@@ -94,7 +94,7 @@ namespace Core
         {
             try
             {
-                return _movieRatingRepository.ReadAll()
+                return _movieRatingRepository.Ratings
                     .Where(rating => rating.Movie == movie)
                     .Average(rating => rating.Grade);
             }
@@ -109,7 +109,7 @@ namespace Core
         public int GetNumberOfRates(int movie, int rate)
         {
             return _movieRatingRepository
-                .ReadAll()
+                .Ratings
                 .Where(rating => rating.Movie == movie)
                 .Count(rating => rating.Grade == rate);
         }
@@ -117,7 +117,7 @@ namespace Core
         //7. What is the id(s) of the movie(s) with the highest number of top rates (5)?
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
-            var movie5 = _movieRatingRepository.ReadAll()
+            var movie5 = _movieRatingRepository.Ratings
                 .Where(r => r.Grade == 5)
                 .GroupBy(r => r.Movie)
                 .Select(group => new {
@@ -136,7 +136,7 @@ namespace Core
         //8. What reviewer(s) had done most reviews?
         public List<int> GetMostProductiveReviewers()
         {
-            var reviewers = _movieRatingRepository.ReadAll()
+            var reviewers = _movieRatingRepository.Ratings
                 .GroupBy(r => r.Reviewer)
                 .Select(group => new {
                     Review = group.Key,
@@ -154,7 +154,8 @@ namespace Core
         //9. On input N, what is top N of movies? The score of a movie is its average rate.
         public List<int> GetTopRatedMovies(int amount)
         {
-            return _movieRatingRepository.ReadAll()
+            return _movieRatingRepository
+                .Ratings
                 .GroupBy(r => r.Movie)
                 .Select(grp => new
                 {
@@ -171,7 +172,8 @@ namespace Core
         be sorted decreasing by rate first, and date secondly.*/
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
-            return _movieRatingRepository.ReadAll()
+            return _movieRatingRepository
+                .Ratings
                 .Where(rating => rating.Reviewer == reviewer)
                 .OrderByDescending(rating => rating.Grade)
                 .ThenByDescending(rating => rating.Date)
@@ -183,7 +185,8 @@ namespace Core
         be sorted decreasing by rate first, and date secondly.*/
         public List<int> GetReviewersByMovie(int movie)
         {
-            return _movieRatingRepository.ReadAll()
+            return _movieRatingRepository
+                .Ratings
                 .Where(rating => rating.Movie == movie)
                 .OrderByDescending(rating => rating.Grade)
                 .ThenByDescending(rating => rating.Date)

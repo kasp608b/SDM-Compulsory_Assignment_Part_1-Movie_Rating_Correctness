@@ -4,6 +4,10 @@ namespace Entities
 {
     public class MovieRating
     {
+        public MovieRating()
+        {
+        }
+
         public MovieRating(int reviewer, int movie, int grade, DateTime date)
         {
             Reviewer = reviewer;
