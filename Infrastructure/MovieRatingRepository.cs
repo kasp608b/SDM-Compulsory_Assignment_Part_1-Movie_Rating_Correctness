@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core;
 using Entities;
 using Newtonsoft.Json;
@@ -9,7 +10,7 @@ namespace Infrastructure
 {
     public class MovieRatingRepository : IMovieRatingRepository
     {
-        public List<MovieRating> Ratings { get; private set; }
+        public MovieRating[] Ratings { get; private set; }
         
 
         public MovieRatingRepository(string fileName)
@@ -18,9 +19,10 @@ namespace Infrastructure
         }
 
 
-        public List<MovieRating> ReadAllMovieRatings(string fileName)
+        public MovieRating[] ReadAllMovieRatings(string fileName)
         {
             List<MovieRating> ratingsList = new List<MovieRating>();
+            MovieRating[] ratingArray;
             using (StreamReader sr = new StreamReader(fileName))
             using (JsonReader reader = new JsonTextReader(sr))
             {
@@ -33,8 +35,9 @@ namespace Infrastructure
                     }
                 }
             }
+            ratingArray = ratingsList.ToArray();
 
-            return ratingsList;
+            return ratingArray;
         }
 
         private MovieRating GetOneMovieRating(JsonReader reader)

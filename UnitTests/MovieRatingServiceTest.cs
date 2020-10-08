@@ -16,7 +16,7 @@ namespace UnitTests
         public MovieRatingServiceTest()
         {
             repoMock = new Mock<IMovieRatingRepository>();
-            repoMock.Setup(x => x.Ratings).Returns(() => ratings);
+            repoMock.Setup(x => x.Ratings).Returns(() => ratings.ToArray());
         }
 
         //Extra test.

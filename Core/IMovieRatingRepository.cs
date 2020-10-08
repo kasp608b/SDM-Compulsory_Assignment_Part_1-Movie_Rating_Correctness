@@ -5,7 +5,7 @@ namespace Core
 {
     public interface IMovieRatingRepository
     {
-        public List<MovieRating> Ratings { get; }
+        public MovieRating[] Ratings { get; }
 
     }
 }

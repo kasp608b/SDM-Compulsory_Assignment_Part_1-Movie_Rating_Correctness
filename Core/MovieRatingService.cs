@@ -44,7 +44,7 @@ namespace Core
         //2. On input N, what is the average rate that reviewer N had given?
         public double GetAverageRateFromReviewer(int reviewer)
         {
-            if (_movieRatingRepository.Ratings.Count == 0)
+            if (_movieRatingRepository.Ratings.Length == 0)
             {
                 throw new ArgumentException("List is empty");
 
