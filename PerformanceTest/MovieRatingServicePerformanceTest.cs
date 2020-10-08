@@ -12,7 +12,7 @@ namespace PerformanceTest
         [ClassInitialize]
         public static void SetUpTest(TestContext tc)
         {
-            repo = new MovieRatingRepository(@"C:\Users\kacpe\Desktop\Datamatiker\Visualstudio C# projects\SDM-Compulsory_Assignment_Part_1-Movie_Rating_Correctness\RatingsArray\ratings.json");
+            repo = new MovieRatingRepository("ratings.json");
         }
 
         [TestMethod]
